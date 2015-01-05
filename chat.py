@@ -116,7 +116,7 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         self.log("Socketio session started")
 
     def log(self, message):
-        self.logger.info("[{0}] {1}".format(self.socket.sessid, message))
+        self.logger.info(u"[{0}] {1}".format(self.socket.sessid, message))
 
     def on_join(self, room):
         self.room = room
@@ -124,7 +124,7 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         return True
 
     def on_nickname(self, nickname):
-        self.log('Nickname: {0}'.format(nickname))
+        self.log(u'Nickname: {0}'.format(nickname))
         self.nicknames.append(nickname)
         self.session['nickname'] = nickname
         self.broadcast_event('announcement', '%s has connected' % nickname)
@@ -142,7 +142,7 @@ class ChatNamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         return True
 
     def on_user_message(self, msg):
-        self.log('User message: {0}'.format(msg))
+        self.log(u'User message: {0}'.format(msg))
         self.emit_to_room(self.room, 'msg_to_room',
             self.session['nickname'], msg)
         return True
